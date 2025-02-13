@@ -28,7 +28,8 @@ export default class Exercice2 {
      * notifications d'erreur ou de warning émises par serviceWeb.recupererNotifications en ajoutant le rôle de l'utilisateur
      * transmis dans l'objet.
      * 
-     * L'ordre de la réémission nous importe ! Les données doivent être réémises dans le même ordre que l'ordre d'émission.
+     * L'ordre de la réémission nous importe ! Les données doivent être réémises dans le même ordre que 
+     * l'ordre d'émission de serviceWeb.recupererNotifications.
      *
      * Les données des utilisateurs sont récupérées via le service serviceWeb.recupererUtilisateur
      */
@@ -43,7 +44,8 @@ export default class Exercice2 {
      * pipeline et de compléter le rôle avec la valeur INCONNU. il vous faudra aussi logger l'erreur rencontrée
      * grâce à la fonction ConsoleUtils.error
      * 
-     * L'ordre de la réémission nous importe ! Les données doivent être réémises dans le même ordre que l'ordre d'émission.
+     * L'ordre de la réémission nous importe ! Les données doivent être réémises dans le même ordre que 
+     * l'ordre d'émission de serviceWeb.recupererNotifications.
      */
     transmettreToutesNotificationsEnrichies(): Observable<NotificationModele & { role ?: Role, }> {
         return EMPTY;

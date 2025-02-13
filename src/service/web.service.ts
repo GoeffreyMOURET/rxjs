@@ -19,10 +19,6 @@ export default class WebService {
         return this.notifications$;
     }
 
-    recupererDerniereNotification(): Observable<NotificationModele> {
-        return this.notifications$.pipe(first());
-    }
-
     recupererUtilisateur(idtUtilisateur: string): Observable<UtilisateurModele> {
         const utilisateur = UTILISTEURS.find((u) => u.idt === idtUtilisateur)
         return of(utilisateur).pipe(
