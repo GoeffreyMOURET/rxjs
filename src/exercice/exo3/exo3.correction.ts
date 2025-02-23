@@ -1,4 +1,4 @@
-import { Observable, EMPTY } from "rxjs";
+import { catchError, combineLatest, concatMap, distinctUntilChanged, filter, map, Observable, of, merge, distinct, distinctUntilKeyChanged } from "rxjs";
 import InputUtilisateurService from "../../service/input-utilisateur.service";
 import WebService from "../../service/web.service";
 
@@ -28,7 +28,14 @@ export default class Exercice3 {
      * L'observable résultat doit émettre à chaque changement de sélection.
      */
     recupererChampsSaisiUtilisateur(): Observable<SelectionUtilisateur> {
-        return EMPTY;
+        return combineLatest({
+            idtUtilisateurSelectionne: this.serviceInputUser.recupererIdtUtilisateurSelectionne(),
+            typeSelectionne: this.serviceInputUser.recupererTypeNotificationSelectionnee()
+        }).pipe(
+            distinctUntilChanged((prev, curr) => 
+                prev.idtUtilisateurSelectionne === curr.idtUtilisateurSelectionne
+                && prev.typeSelectionne === curr.typeSelectionne)
+        )
     }
 
 
@@ -41,7 +48,15 @@ export default class Exercice3 {
      * notifications attendu est le suivant : '[typeNotif] titre : message'. 
      */
     recupererNotificationsFiltreesParType(): Observable<string> {
-        return EMPTY;
+        return combineLatest({
+            typeNotification: merge(of(undefined), this.serviceInputUser.recupererTypeNotificationSelectionnee()),
+            notification: this.webService.recupererNotifications()
+        }).pipe(
+            distinctUntilKeyChanged('notification'),
+            filter(({ typeNotification, notification, }) => 
+                typeNotification === undefined || notification.type === typeNotification),
+            map(({ notification, }) => `[${notification.type}] ${notification.titre} : ${notification.message}`)
+        )
     }
 
 
@@ -59,7 +74,19 @@ export default class Exercice3 {
      * d'utilisateur sélectionné, seuls les messages postérieurs au changement sont à prendre en compte.
      */
     recupererNotificationUtilisateurSelectionne(): Observable<string> {
-        return EMPTY;
+        return combineLatest({
+            idtUtilisateur: this.serviceInputUser.recupererIdtUtilisateurSelectionne(),
+            notification: this.webService.recupererNotifications(),
+        }).pipe(
+            distinctUntilKeyChanged('notification'),
+            filter(({ notification, idtUtilisateur, }) => !!idtUtilisateur && notification.idUtilisateur === idtUtilisateur),
+            concatMap(({ idtUtilisateur, notification, }) => this.webService.recupererUtilisateur(idtUtilisateur!).pipe(
+                map(({ nom, prenom, }) => ({ notification, infoUser: `${nom} ${prenom}`})),
+                catchError(() => of({ notification, infoUser: 'INCONNU'}))
+            )),
+            map(({ notification, infoUser, }) => `[Utilisateur : ${infoUser}] ${notification.titre} : ${notification.message}`)
+        )
     }
+
 
 }

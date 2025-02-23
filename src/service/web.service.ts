@@ -11,7 +11,8 @@ export default class WebService {
         this.notifications$ = interval(10).pipe(
             delay(100),
             map((n) => NOTIFICATIONS.at((n*3)%NOTIFICATIONS.length)),
-            filter((n) => n != undefined)
+            filter((n) => n != undefined),
+            map((n) => ({ ...n, dateEmission: new Date()}))
         )
     }
 

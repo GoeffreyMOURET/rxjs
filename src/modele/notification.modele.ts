@@ -8,4 +8,6 @@ export default interface NotificationModele {
     type: TypeNotification;
 
     idUtilisateur?: string;
+
+    dateEmission: Date,
 }

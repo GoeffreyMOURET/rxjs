@@ -5,10 +5,11 @@ import Exercice2 from "./exo2";
 describe('Exercice 2', () => {
     let exo2: Exercice2;
     let donneesRecues: unknown[];
+    let maintenant: Date;
     
     beforeEach(() => {
         exo2 = new Exercice2();
-        const maintenant = new Date('2021-10-05T14:48:00.000Z');
+        maintenant = new Date('2021-10-05T14:48:00.000Z');
         jest.spyOn(global, 'Date').mockImplementation(() => maintenant);
         donneesRecues = [];
     });
@@ -33,35 +34,35 @@ describe('Exercice 2', () => {
                   nationnalite: 'EN',
                   prenom: 'Kate',
                   nom: 'Smith',
-                  role: 'USER'
+                  role: 'USER',
                 },
                 {
                   idt: 'a5ded7e5-35bc-42b9-b9e4-dd6860324540',
                   nationnalite: 'EN',
                   prenom: 'John',
                   nom: 'Doe',
-                  role: 'ADMIN'
+                  role: 'ADMIN',
                 },
                 {
                   idt: 'a5ded7e5-35bc-42b9-b9e4-dd6860324540',
                   nationnalite: 'EN',
                   prenom: 'John',
                   nom: 'Doe',
-                  role: 'ADMIN'
+                  role: 'ADMIN',
                 },
                 {
                   idt: '4e4d3b1d-8a09-4fae-82f5-34082a90c25e',
                   nationnalite: 'EN',
                   prenom: 'Kate',
                   nom: 'Smith',
-                  role: 'USER'
+                  role: 'USER',
                 },
                 {
                   idt: '4e4d3b1d-8a09-4fae-82f5-34082a90c25e',
                   nationnalite: 'EN',
                   prenom: 'Kate',
                   nom: 'Smith',
-                  role: 'USER'
+                  role: 'USER',
                 }
               ])
             );
@@ -85,62 +86,72 @@ describe('Exercice 2', () => {
                     {
                       titre: 'Mauvaise connexion',
                       message: 'Une tentative de connexion au compte de John Doe a été effectuée avec un mauvais mot de passe',
-                      type: 'WARNING'
+                      type: 'WARNING',
+                      dateEmission: maintenant,
                     },
                     {
                       titre: 'Erreur inattendue',
                       message: 'Une erreur a été rencontrée dans le traitement de la notification',
                       type: 'ERROR',
                       idUtilisateur: '4e4d3b1d-8a09-4fae-82f5-34082a90c25e',
-                      role: 'USER'
+                      role: 'USER',
+                      dateEmission: maintenant,
                     },
                     {
                       titre: 'Perte de la connexion',
                       message: 'La connexion a été perdue',
                       type: 'ERROR',
                       idUtilisateur: 'a5ded7e5-35bc-42b9-b9e4-dd6860324540',
-                      role: 'ADMIN'
+                      role: 'ADMIN',
+                      dateEmission: maintenant,
                     },
                     {
                       titre: 'Mauvaise connexion',
                       message: 'Une tentative de connexion au compte de Kate Smith a été effectuée avec un mauvais mot de passe',
-                      type: 'WARNING'
+                      type: 'WARNING',
+                      dateEmission: maintenant,
                     },
                     {
                       titre: 'Mauvaise connexion',
                       message: 'Une tentative de connexion au compte de John Doe a été effectuée avec un mauvais mot de passe',
-                      type: 'WARNING'
+                      type: 'WARNING',
+                      dateEmission: maintenant,
                     },
                     {
                       titre: 'Erreur inattendue',
                       message: 'Une erreur a été rencontrée dans le traitement de la notification',
                       type: 'ERROR',
                       idUtilisateur: '4e4d3b1d-8a09-4fae-82f5-34082a90c25e',
-                      role: 'USER'
+                      role: 'USER',
+                      dateEmission: maintenant,
                     },
                     {
                       titre: 'Perte de la connexion',
                       message: 'La connexion a été perdue',
                       type: 'ERROR',
                       idUtilisateur: 'a5ded7e5-35bc-42b9-b9e4-dd6860324540',
-                      role: 'ADMIN'
+                      role: 'ADMIN',
+                      dateEmission: maintenant,
                     },
                     {
                       titre: 'Mauvaise connexion',
                       message: 'Une tentative de connexion au compte de Kate Smith a été effectuée avec un mauvais mot de passe',
-                      type: 'WARNING'
+                      type: 'WARNING',
+                      dateEmission: maintenant,
                     },
                     {
                       titre: 'Mauvaise connexion',
                       message: 'Une tentative de connexion au compte de John Doe a été effectuée avec un mauvais mot de passe',
-                      type: 'WARNING'
+                      type: 'WARNING',
+                      dateEmission: maintenant,
                     },
                     {
                       titre: 'Erreur inattendue',
                       message: 'Une erreur a été rencontrée dans le traitement de la notification',
                       type: 'ERROR',
                       idUtilisateur: '4e4d3b1d-8a09-4fae-82f5-34082a90c25e',
-                      role: 'USER'
+                      role: 'USER',
+                      dateEmission: maintenant,
                     }
                   ]
             )
@@ -170,62 +181,72 @@ describe('Exercice 2', () => {
                   message: 'Bienvenue dans la nouvelle application',
                   type: 'INFO',
                   idUtilisateur: '9ee3f416-2964-4026-833c-2f236c77cb42',
-                  role: 'SUPER-ADMIN'
+                  role: 'SUPER-ADMIN',
+                  dateEmission: maintenant,
                 },
                 {
                   titre: 'Mauvaise connexion',
                   message: 'Une tentative de connexion au compte de John Doe a été effectuée avec un mauvais mot de passe',
-                  type: 'WARNING'
+                  type: 'WARNING',
+                  dateEmission: maintenant,
                 },
                 {
                   titre: 'Erreur inattendue',
                   message: 'Une erreur a été rencontrée dans le traitement de la notification',
                   type: 'ERROR',
                   idUtilisateur: '4e4d3b1d-8a09-4fae-82f5-34082a90c25e',
-                  role: 'USER'
+                  role: 'USER',
+                  dateEmission: maintenant,
                 },
                 {
                   titre: 'Nouvel Utilisateur',
                   message: "Un nouvel utilisateur s'est inscrit",
                   type: 'INFO',
                   idUtilisateur: 'f00d63e8-9493-4280-8eb0-540146f6438e',
-                  role: 'INCONNU'
+                  role: 'INCONNU',
+                  dateEmission: maintenant,
                 },
                 {
                   titre: 'Perte de la connexion',
                   message: 'La connexion a été perdue',
                   type: 'ERROR',
                   idUtilisateur: 'a5ded7e5-35bc-42b9-b9e4-dd6860324540',
-                  role: 'ADMIN'
+                  role: 'ADMIN',
+                  dateEmission: maintenant,
                 },
                 {
                   titre: 'Nouveau Message',
                   message: 'Vous avez reçu un nouveau message',
-                  type: 'INFO'
+                  type: 'INFO',
+                  dateEmission: maintenant,
                 },
                 {
                   titre: 'Mauvaise connexion',
                   message: 'Une tentative de connexion au compte de Kate Smith a été effectuée avec un mauvais mot de passe',
-                  type: 'WARNING'
+                  type: 'WARNING',
+                  dateEmission: maintenant,
                 },
                 {
                   titre: 'Bienvenue',
                   message: 'Bienvenue dans la nouvelle application',
                   type: 'INFO',
                   idUtilisateur: '9ee3f416-2964-4026-833c-2f236c77cb42',
-                  role: 'SUPER-ADMIN'
+                  role: 'SUPER-ADMIN',
+                  dateEmission: maintenant,
                 },
                 {
                   titre: 'Mauvaise connexion',
                   message: 'Une tentative de connexion au compte de John Doe a été effectuée avec un mauvais mot de passe',
-                  type: 'WARNING'
+                  type: 'WARNING',
+                  dateEmission: maintenant,
                 },
                 {
                   titre: 'Erreur inattendue',
                   message: 'Une erreur a été rencontrée dans le traitement de la notification',
                   type: 'ERROR',
                   idUtilisateur: '4e4d3b1d-8a09-4fae-82f5-34082a90c25e',
-                  role: 'USER'
+                  role: 'USER',
+                  dateEmission: maintenant,
                 }
               ]);
             done();

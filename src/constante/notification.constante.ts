@@ -1,7 +1,7 @@
 import NotificationModele from "../modele/notification.modele";
 import { idtInconnu, idtJohnDoe, idtKateSmith, idtUtilisateurActuel } from "./utilisateur.constante";
 
-export const NOTIFICATIONS: NotificationModele[] = [
+export const NOTIFICATIONS: Omit<NotificationModele, 'dateEmission'>[] = [
     {
         titre: 'Bienvenue',
         message: 'Bienvenue dans la nouvelle application',

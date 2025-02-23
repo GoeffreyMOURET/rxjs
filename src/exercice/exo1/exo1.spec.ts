@@ -6,10 +6,11 @@ describe('Exercice 1', () => {
     let exo1: Exercice1;
     let donneesLoggees: unknown[];
     let spyConsole: jest.SpyInstance<void, [params: unknown], any>;
+    let maintenant;
     
     beforeEach(() => {
         exo1 = new Exercice1();
-        const maintenant = new Date('2021-10-05T14:48:00.000Z');
+        maintenant = new Date('2021-10-05T14:48:00.000Z');
         jest.spyOn(global, 'Date').mockImplementation(() => maintenant);
         donneesLoggees = []
         spyConsole = jest.spyOn(ConsoleUtils, 'log');
@@ -36,47 +37,57 @@ describe('Exercice 1', () => {
                   "message": "Bienvenue dans la nouvelle application",
                   "titre": "Bienvenue",
                   "type": "INFO",
+                  "dateEmission": maintenant,
                 }, {
                   "message": "Une tentative de connexion au compte de John Doe a été effectuée avec un mauvais mot de passe",
                   "titre": "Mauvaise connexion",
                   "type": "WARNING",
+                  "dateEmission": maintenant,
                 }, {
                   "message": "Une erreur a été rencontrée dans le traitement de la notification",
                   "titre": "Erreur inattendue",
                   "type": "ERROR",
                   "idUtilisateur": idtKateSmith,
+                  "dateEmission": maintenant,
                 }, {
                   "message": "Un nouvel utilisateur s'est inscrit",
                   "titre": "Nouvel Utilisateur",
                   "type": "INFO",
                   "idUtilisateur": idtInconnu,
+                  "dateEmission": maintenant,
                 }, {
                   "message": "La connexion a été perdue",
                   "titre": "Perte de la connexion",
                   "type": "ERROR",
                   "idUtilisateur": idtJohnDoe,
+                  "dateEmission": maintenant,
                 }, {
                   "message": "Vous avez reçu un nouveau message",
                   "titre": "Nouveau Message",
                   "type": "INFO",
+                  "dateEmission": maintenant,
                 }, {
                   "message": "Une tentative de connexion au compte de Kate Smith a été effectuée avec un mauvais mot de passe",
                   "titre": "Mauvaise connexion",
                   "type": "WARNING",
+                  "dateEmission": maintenant,
                 }, {
                   "idUtilisateur": "9ee3f416-2964-4026-833c-2f236c77cb42",
                   "message": "Bienvenue dans la nouvelle application",
                   "titre": "Bienvenue",
                   "type": "INFO",
+                  "dateEmission": maintenant,
                 }, {
                   "message": "Une tentative de connexion au compte de John Doe a été effectuée avec un mauvais mot de passe",
                   "titre": "Mauvaise connexion",
                   "type": "WARNING",
+                  "dateEmission": maintenant,
                 }, {
                   "message": "Une erreur a été rencontrée dans le traitement de la notification",
                   "titre": "Erreur inattendue",
                   "type": "ERROR",
                   "idUtilisateur": idtKateSmith,
+                  "dateEmission": maintenant,
                 },
             ]);
         });
