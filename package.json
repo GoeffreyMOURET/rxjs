@@ -4,8 +4,10 @@
   "description": "Liste d'exercices utilisatn RXJS",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "quiz": "npx tsx .\\src\\quiz\\quiz%npm_config_numero%.ts"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GoeffreyMOURET/rxjs.git"
@@ -21,12 +23,14 @@
   },
   "homepage": "https://github.com/GoeffreyMOURET/rxjs#readme",
   "dependencies": {
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "jest": "^29.7.0",
     "ts-jest": "^29.2.5",
+    "tsx": "^4.19.3",
     "typescript": "^5.7.3"
   }
 }
