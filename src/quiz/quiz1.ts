@@ -1,4 +1,5 @@
-import { concatAll, delay, exhaustAll, from, interval, map, merge, mergeAll, mergeMap, Observable, of, switchAll, take, tap, throwError } from "rxjs";
+import { concatAll, delay, exhaustAll, from, interval, map, merge, mergeAll, mergeMap, 
+    Observable, of, switchAll, take, tap, throwError, defer } from "rxjs";
 
 
 /**
@@ -73,6 +74,19 @@ export default class Quiz1 {
             error: console.log,
             complete: () => console.log('COMPLETE')
         })
+    }
+
+    question7(): void {
+        of('Coucou').pipe(
+            delay(5),
+            tap((s) => console.log('TAP : ' + s))
+        ).subscribe({
+            next: (r) => console.log('NEXT : ' + r),
+            error: () => console.log('Erreur'),
+            complete: () => console.log('COMPLETE')
+        });
+
+        console.log('Comment ça va ?');
     }
 
     
