@@ -1,13 +1,17 @@
-import { interval, Observable, map, filter, delay, of, ReplaySubject, take } from "rxjs";
+import { interval, Observable, map, filter, delay, of, ReplaySubject, take, throwError } from "rxjs";
 import NotificationModele from "../modele/notification.modele";
 import { NOTIFICATIONS } from "../constante/notification.constante";
 import UtilisateurModele from "../modele/utilisateur.modele";
-import { UTILISTEURS } from "../constante/utilisateur.constante";
+import { idtInconnu, UTILISTEURS } from "../constante/utilisateur.constante";
+import { MailModele, MailReponseModele } from "../modele/mail.modele";
+import CallbackService from "./callback.service";
 
 export default class WebService {
     private notifications$: Observable<NotificationModele>;
     
-    constructor() {
+    constructor(
+        private readonly callbackService ?: CallbackService
+    ) {
         const controleur = new ReplaySubject<NotificationModele>();
         interval(10).pipe(
             take(500),
@@ -31,6 +35,19 @@ export default class WebService {
                 if (!utilisateur) throw new Error('Utilisateur non-trouvé');
                 return utilisateur;
             })
+        )
+    }
+
+    envoyerMail(infoMail: MailModele): Observable<MailReponseModele> {
+        if (!this.callbackService?.serveurInstalle) {
+            return throwError(() => new Error('Le serveur n\'a pas été installé'));
+        }
+        return of(true).pipe(
+            delay(10),
+            map((): MailReponseModele => ({ 
+                ...infoMail, 
+                statutEnvoi: infoMail.idtDestinataire === idtInconnu ? 'KO' : 'OK', 
+            }))
         )
     }
 }
