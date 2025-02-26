@@ -1,5 +1,4 @@
-import { concatAll, delay, exhaustAll, from, interval, map, merge, mergeAll, mergeMap, 
-    Observable, of, switchAll, take, tap, throwError, defer } from "rxjs";
+import { delay, from, interval, map, merge, Observable, of, take, tap } from "rxjs";
 
 
 /**
@@ -93,3 +92,4 @@ export default class Quiz1 {
 }
 
 const quiz = new Quiz1();
+quiz.question1();
