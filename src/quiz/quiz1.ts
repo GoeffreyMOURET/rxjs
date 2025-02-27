@@ -87,8 +87,6 @@ export default class Quiz1 {
 
         console.log('Comment ça va ?');
     }
-
-    
 }
 
 const quiz = new Quiz1();
