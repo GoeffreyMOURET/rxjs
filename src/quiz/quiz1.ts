@@ -12,7 +12,7 @@ export default class Quiz1 {
             next: (r) => console.log(r),
             error: console.log,
             complete: () => console.log('COMPLETE')
-        })
+        });
     }
 
     question2(): void {
@@ -22,7 +22,7 @@ export default class Quiz1 {
             next: (r) => console.log(r),
             error: console.log,
             complete: () => console.log('COMPLETE')
-        })
+        });
     }
 
     question3(): void {
@@ -32,7 +32,7 @@ export default class Quiz1 {
             next: (r) => console.log(r),
             error: console.log,
             complete: () => console.log('COMPLETE')
-        })
+        });
     }
 
     private mettreAuCarreAvecDelai$(i: number): Observable<number> {
@@ -49,15 +49,17 @@ export default class Quiz1 {
             next: (r) => console.log(r),
             error: console.log,
             complete: () => console.log('COMPLETE')
-        })
+        });
     }
 
     question5(): void {
-        from(Promise.resolve()).subscribe({
+        from(
+            new Promise(resolve => setTimeout(resolve, 1000)).then(() => 'TOTO')
+        ).subscribe({
             next: (r) => console.log(r),
             error: console.log,
             complete: () => console.log('COMPLETE')
-        })
+        });
     }
 
     question6(): void {
@@ -72,7 +74,7 @@ export default class Quiz1 {
             next: (r) => console.log(r),
             error: console.log,
             complete: () => console.log('COMPLETE')
-        })
+        });
     }
 
     question7(): void {
