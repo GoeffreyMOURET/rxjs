@@ -2,16 +2,17 @@ export default class CallbackService {
 
     private serveurMailMisEnPlace = false;
 
+    reussiteMiseEnPlaceServeurMail = true;
     mettreEnPlaceServeurMail(
         url: string,
         port: number,
-        callbackReussite ?: () => void,
+        callbackMiseEnPlaceTerminee ?: (reussite: boolean) => void,
     ): void {
         console.log('Un serveur va être démarré à l\'url ' + url + ' au port ' + port);
         setTimeout(
             () => {
                 this.serveurMailMisEnPlace = true;
-                if (callbackReussite) callbackReussite();
+                if (callbackMiseEnPlaceTerminee) callbackMiseEnPlaceTerminee(this.reussiteMiseEnPlaceServeurMail);
             },
             150
         );
@@ -34,12 +35,4 @@ export default class CallbackService {
         )
     }
     reponseUtilisateur = true;
-
-    effectuerActionLorsqueDisponible(
-        actionAEffectuer: () => void
-    ): void {
-        if (this.disponible) actionAEffectuer();
-        else setTimeout(actionAEffectuer, 100);
-    }
-    disponible = false;
 }

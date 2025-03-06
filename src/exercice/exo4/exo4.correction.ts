@@ -1,4 +1,4 @@
-import { Observable, EMPTY } from "rxjs";
+import { Observable, ReplaySubject, switchMap, tap, map, noop } from "rxjs";
 import CallbackService from "../../service/callback.service";
 import WebService from "../../service/web.service";
 
@@ -20,7 +20,17 @@ export default class Exercice4 {
     question: string,
     callbackReponse: (reponse: boolean) => void
   ): Observable<boolean> {
-    return EMPTY;
+    const reponseNotifieur = new ReplaySubject<boolean>(1);
+    
+    const callbackAvecNotifieur = (reponse: boolean) => {
+      callbackReponse(reponse);
+      reponseNotifieur.next(reponse);
+      reponseNotifieur.complete();
+    }
+
+    this.callbackService.afficherQuestion(question, callbackAvecNotifieur);
+    
+    return reponseNotifieur.asObservable();
   }
 
 
@@ -41,6 +51,27 @@ export default class Exercice4 {
    * @returns : Un observable qui émet lorsque le mail a bien été envoyé
    */
   envoyerMail$(contenuMail: string, idtDestinataire: string): Observable<void> {
-    return EMPTY;
+    const reussiteNotifieur = new ReplaySubject<boolean>(1);
+
+    this.callbackService.mettreEnPlaceServeurMail(
+      this.URL_SERVEUR_MAIL,
+      this.PORT,
+      (reussite) => {
+        reussiteNotifieur.next(reussite);
+        reussiteNotifieur.complete();
+      }
+    );
+    
+    return reussiteNotifieur.asObservable().pipe(
+      tap((reussite) => {
+        if (!reussite) throw new Error('Erreur lors de la mise en place du serveur de mail');
+      }),
+      switchMap(() => this.webService.envoyerMail({ contenu: contenuMail, idtDestinataire, })),
+      tap((reponseMail) => {
+        if (reponseMail.statutEnvoi === 'KO') throw new Error('Erreur lors de l\'envoi du mail');
+      }),
+      map(noop)
+    );
+    
   }
 }

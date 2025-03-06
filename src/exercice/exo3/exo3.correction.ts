@@ -1,6 +1,7 @@
 import { catchError, combineLatest, concatMap, distinctUntilChanged, filter, map, Observable, of, distinctUntilKeyChanged, switchMap } from "rxjs";
 import InputUtilisateurService from "../../service/input-utilisateur.service";
 import WebService from "../../service/web.service";
+import NotificationModele from "../../modele/notification.modele";
 
 interface SelectionUtilisateur { 
     idtUtilisateurSelectionne: string | undefined; 
@@ -92,12 +93,17 @@ export default class Exercice3 {
         }).pipe(
             distinctUntilKeyChanged('notification'),
             filter(({ notification, idtUtilisateur, }) => !!idtUtilisateur && notification.idUtilisateur === idtUtilisateur),
-            concatMap(({ idtUtilisateur, notification, }) => this.webService.recupererUtilisateur(idtUtilisateur!).pipe(
-                map(({ nom, prenom, }) => ({ notification, infoUser: `${nom} ${prenom}`})),
-                catchError(() => of({ notification, infoUser: 'INCONNU'}))
-            )),
+            concatMap(({ idtUtilisateur, notification, }) => this.completerAvecInfoUtilisateur(idtUtilisateur, notification)),
             map(({ notification, infoUser, }) => `[Utilisateur : ${infoUser}] ${notification.titre} : ${notification.message}`)
         )
+    }
+
+    private completerAvecInfoUtilisateur(idtUtilisateur: string | undefined, notification: NotificationModele)
+    : Observable<{ notification: NotificationModele; infoUser: string; }> {
+        return this.webService.recupererUtilisateur(idtUtilisateur!).pipe(
+            map(({ nom, prenom, }) => ({ notification, infoUser: `${nom} ${prenom}` })),
+            catchError(() => of({ notification, infoUser: 'INCONNU' }))
+        );
     }
 
     recupererNotificationUtilisateurSelectionneV2(): Observable<string> {
@@ -107,10 +113,7 @@ export default class Exercice3 {
                     .pipe(map((notification) => ({ notification, idtUtilisateur})))
             ),
             filter(({ notification, idtUtilisateur, }) => !!idtUtilisateur && notification.idUtilisateur === idtUtilisateur),
-            concatMap(({ idtUtilisateur, notification, }) => this.webService.recupererUtilisateur(idtUtilisateur!).pipe(
-                map(({ nom, prenom, }) => ({ notification, infoUser: `${nom} ${prenom}`})),
-                catchError(() => of({ notification, infoUser: 'INCONNU'}))
-            )),
+            concatMap(({ idtUtilisateur, notification, }) => this.completerAvecInfoUtilisateur(idtUtilisateur, notification)),
             map(({ notification, infoUser, }) => `[Utilisateur : ${infoUser}] ${notification.titre} : ${notification.message}`)
         )
     }
