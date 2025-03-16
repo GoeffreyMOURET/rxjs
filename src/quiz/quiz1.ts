@@ -48,7 +48,7 @@ export default class Quiz1 {
 
     private mettreAuCarreAvecDelai$(i: number): Observable<number> {
         return of(undefined).pipe(
-            delay(i <= 4 ? 100 : 0),
+            delay(i <= 4 ? 100 : 1),
             map(() => i*i)
         );
     }
