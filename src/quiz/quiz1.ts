@@ -1,4 +1,4 @@
-import { delay, from, interval, map, merge, Observable, of, take, tap } from "rxjs";
+import { delay, filter, from, interval, map, merge, Observable, of, take, tap } from "rxjs";
 
 
 /**
@@ -28,6 +28,17 @@ export default class Quiz1 {
     question3(): void {
         interval(10).pipe(
             take(5)
+        ).subscribe({
+            next: (r) => console.log(r),
+            error: console.log,
+            complete: () => console.log('COMPLETE')
+        });
+    }
+
+    question3bis(): void {
+        interval(10).pipe(
+            take(5),
+            filter(i => i%2 == 0)
         ).subscribe({
             next: (r) => console.log(r),
             error: console.log,
