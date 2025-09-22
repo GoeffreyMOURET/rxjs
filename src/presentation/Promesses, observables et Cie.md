@@ -1,5 +1,7 @@
 # Promesses, observables... Mais pourquoi ?
 
+<img src="./images/introduction-promesse-rxjs.png" alt="drawing" width="400"/>
+
 ## On peut pas coder du JS comme du Java ?
 
 La question est relativement simple : pourquoi est-ce que en java, pour effectuer une requête HTTP puis une requête en BDD, on peut écrire : 
@@ -14,17 +16,17 @@ public void maSuperbeFonction() {
 }
 ```
 
-Bon, la question est : Pourquoi est-ce qu'on ne peut pas écrire ça en JavaScript ? La réponse se trouve dans la définition du Javascript : 
+et en JavaScript, l'équivalent n'existe pas simplement ? La réponse est contenu dans la phrase suivante : 
 
 >JavaScript is single threaded, non-blocking, asynchronous and concurrent programming language
 
 Regardons ce que cela veut dire :
-- `single threaded` signifie qu'il ne possède qu'une seule call-stack. Dit autrement, on ne peut exécuter qu'un bout de code à la fois.
+- `single threaded` signifie qu'il ne possède qu'une seule call-stack. Autrement dit, on ne peut exécuter qu'un bout de code à la fois.
 - `non-blocking` signifie que Javascript n'attend pas la réponse d'un appel API, d'une requête Ajax, d'un timer... avant de passer au bout de code suivant. 
 - `concurrent`... Quoi ? Unithread mais concurrent ? Bon... On va essayer d'expliquer ça. Le caractère concurrent vient de la manière dont les API Web sont gérées. En effet, ces API ne sont pas gérées par la callStack de JS mais dans une API à part (en C++ pour node) qui a sa propre thread. Ce qui laisse de la place pour que JS traite d'autres choses en parallèle.
 - `asynchronous` fait référence à la gestion de l'exécution des fonctions dans sa callStack. Par exemple, pour exécuter un traitement suite à une réponse d'un API Web de JS, ce traitement sera ajouter <b>uniquement une fois que l'API Web aura répondu</b> dans la callStack de JS. Et si vous voulez savoir ce que signifie "la callStack de JS", rendez-vous [ici](https://www.youtube.com/watch?v=Qe0IKzAB1OE).
 
-Avec des mots plus simples, cela signifie que si on écrivait en JS le même code qu'en Java, tant que le serveur et l'enregistrement n'ont pas répondu, l'application serait complètement freeze. Ce n'est pas idéal. 
+Ainsi, cela signifie que si on écrivait en JS le même code qu'en Java, tant que GoogleServeur et l'enregistrement n'ont pas répondu, l'application serait complètement freeze. Ce n'est pas idéal. 
 
 Pour remédier à ce soucis, plusieurs options ont été trouvées au fur à mesure du temps en JS.
 
