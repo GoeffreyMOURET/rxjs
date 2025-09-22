@@ -5,6 +5,12 @@ import { BehaviorSubject, ReplaySubject, Subject, map } from "rxjs";
 */
 export default class Quiz2 {
 
+    /**
+     * -> On remarque que l'on n'a pas le COMPLETE qui apparaît dans la console
+     * Ouput : 
+     * BONJOUR
+     * Comment ça va ?
+     */
     question1(): void {
         const notifieur = new Subject<string>();
         notifieur.subscribe({
@@ -16,6 +22,12 @@ export default class Quiz2 {
         notifieur.next('Comment ça va ?');
     }
 
+    /**
+     * Ouput : 
+     * Abonnement 1 : BONJOUR
+     * Abonnement 1 : Comment ça va ?
+     * Abonnement 2 : Comment ça va ?
+     */
     question2(): void {
         const notifieur = new Subject<string>();
         notifieur.pipe(
@@ -37,6 +49,12 @@ export default class Quiz2 {
         notifieur.next('Comment ça va ?');
     }
 
+    /**
+     * Output : 
+     * Tata
+     * Bonjour
+     * COMPLETE
+     */
     question3(): void {
         const notifieur = new BehaviorSubject<string>('Tata');
 
@@ -50,6 +68,14 @@ export default class Quiz2 {
 
     }
 
+    /**
+     * Output :
+     * Abonnement 1 : Tata
+     * Abonnement 1 : Bonjour
+     * Abonnement 2 : Bonjour
+     * COMPLETE Abonnement 1
+     * COMPLETE Abonnement 2
+     */
     question4(): void {
         const notifieur = new BehaviorSubject<string>('Tata');
 
@@ -72,6 +98,11 @@ export default class Quiz2 {
         notifieur.complete();
     }
 
+    /**
+     * Output :
+     * Bonjour
+     * COMPLETE
+     */
     question5(): void {
         const notifieur = new ReplaySubject<string>(2);
 
@@ -85,6 +116,13 @@ export default class Quiz2 {
 
     }
 
+    /**
+     * Output :
+     * Bonjour 2
+     * Bonjour 3
+     * Bonjour 4
+     * COMPLETE
+     */
     question6(): void {
         const notifieur = new ReplaySubject<string>(2);
         notifieur.next('Bonjour 1');
@@ -100,6 +138,20 @@ export default class Quiz2 {
         notifieur.complete();
     }
 
+    /**
+     * Output :
+     * Abonnement 1 : Bonjour
+     * Abonnement 2 : Bonjour
+     * Abonnement 1 : Au revoir
+     * Abonnement 2 : Au revoir
+     * Abonnement 3 : Au revoir
+     * Abonnement 1 : Bye
+     * Abonnement 2 : Bye
+     * Abonnement 3 : Bye
+     * COMPLETE Abonnement 1
+     * COMPLETE Abonnement 2
+     * COMPLETE Abonnement 3
+     */
     question7(): void {
         const notifieur = new ReplaySubject<string>(1);
 
